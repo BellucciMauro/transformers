@@ -99,3 +99,6 @@ def replace_with_vptq_linear(
         # Remove the last key for recursion
         current_key_name.pop(-1)
     return model, has_been_replaced
+
+
+__all__ = ["replace_with_vptq_linear"]

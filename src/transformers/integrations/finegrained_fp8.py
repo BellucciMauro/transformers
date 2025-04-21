@@ -424,3 +424,6 @@ def replace_with_fp8_linear(
         )
 
     return model
+
+
+__all__ = ["FP8Linear", "replace_with_fp8_linear"]

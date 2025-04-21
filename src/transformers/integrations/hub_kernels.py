@@ -91,3 +91,10 @@ __all__ = [
     "register_kernel_mapping",
     "replace_kernel_forward_from_hub",
 ]
+
+__all__ = [
+    "LayerRepository",
+    "register_kernel_mapping",
+    "replace_kernel_forward_from_hub",
+    "use_kernel_forward_from_hub",
+]

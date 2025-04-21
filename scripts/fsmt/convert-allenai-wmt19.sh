@@ -48,12 +48,12 @@ PYTHONPATH="src" python src/transformers/convert_fsmt_original_pytorch_checkpoin
 
 # upload
 cd data
-transformers-cli upload -y wmt19-de-en-6-6-base
-transformers-cli upload -y wmt19-de-en-6-6-big
+transformers upload -y wmt19-de-en-6-6-base
+transformers upload -y wmt19-de-en-6-6-big
 cd -
 
 
 # if updating just small files and not the large models, here is a script to generate the right commands:
-perl -le 'for $f (@ARGV) { print qq[transformers-cli upload -y $_/$f --filename $_/$f] for ("wmt19-de-en-6-6-base", "wmt19-de-en-6-6-big")}' vocab-src.json vocab-tgt.json tokenizer_config.json config.json
+perl -le 'for $f (@ARGV) { print qq[transformers upload -y $_/$f --filename $_/$f] for ("wmt19-de-en-6-6-base", "wmt19-de-en-6-6-big")}' vocab-src.json vocab-tgt.json tokenizer_config.json config.json
 # add/remove files as needed
 

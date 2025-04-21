@@ -85,4 +85,4 @@ tokenizer.save_pretrained(mname_tiny)
 print(f"Generated {mname_tiny}")
 
 # Upload
-# transformers-cli upload tiny-wmt19-en-ru
+# transformers upload tiny-wmt19-en-ru

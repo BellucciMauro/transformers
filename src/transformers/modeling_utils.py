@@ -1219,6 +1219,7 @@ def _get_torch_dtype(
             )
 
         dtype_orig = cls._set_default_torch_dtype(torch_dtype)
+        logger.info("set_default_torch_dtype done")
     else:
         # set fp32 as the default dtype for BC
         default_dtype = torch.get_default_dtype()
@@ -1227,6 +1228,7 @@ def _get_torch_dtype(
             value = getattr(config, key)
             value.torch_dtype = default_dtype
 
+    logger.info("returning")
     return config, torch_dtype, dtype_orig
 
 
@@ -2178,7 +2180,9 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, PushToHubMixin, PeftAdapterMi
 
         logger.info(f"Instantiating {cls.__name__} model under default dtype {dtype}.")
         dtype_orig = torch.get_default_dtype()
+        logger.info("dtype_orig")
         torch.set_default_dtype(dtype)
+        logger.info("set_default_dtype")
         return dtype_orig
 
     @property
@@ -4393,11 +4397,14 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, PushToHubMixin, PeftAdapterMi
             config, torch_dtype, dtype_orig = _get_torch_dtype(
                 cls, torch_dtype, checkpoint_files, config, sharded_metadata, state_dict, weights_only
             )
+            logger.info("get torch dtype done")
 
         config.name_or_path = pretrained_model_name_or_path
+        logger.info("config name or path")
 
         # Instantiate model.
         model_init_context = cls.get_init_context(is_quantized, _is_ds_init_called)
+        logger.info("init model context")
 
         config = copy.deepcopy(config)  # We do not want to modify the config inplace in from_pretrained.
         if not getattr(config, "_attn_implementation_autoset", False):

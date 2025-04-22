@@ -1986,8 +1986,11 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, PushToHubMixin, PeftAdapterMi
         dtype_orig = None
         if torch_dtype is not None:
             dtype_orig = cls._set_default_torch_dtype(torch_dtype)
+            logger.info(f"a")
 
+        logger.info(f"b")
         config = copy.deepcopy(config)  # We do not want to modify the config inplace in _from_config.
+        logger.info(f"c")
 
         if config._attn_implementation_internal is not None:
             # In this case, the config has been created with the attn_implementation set by the user, which we

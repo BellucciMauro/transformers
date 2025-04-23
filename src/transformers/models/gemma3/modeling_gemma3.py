@@ -1036,7 +1036,7 @@ class Gemma3MultiModalProjector(nn.Module):
     def __init__(self, config: Gemma3Config):
         logger.info(f".1")
         super().__init__()
-        logger.info(f.2")
+        logger.info(f".2")
         self.mm_input_projection_weight = nn.Parameter(
             torch.zeros(config.vision_config.hidden_size, config.text_config.hidden_size)
         )

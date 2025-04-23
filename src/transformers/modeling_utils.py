@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import collections
+import inspect
 import copy
 import functools
 import gc
@@ -1999,7 +2000,10 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, PushToHubMixin, PeftAdapterMi
         else:
             attn_implementation = None
 
+        logger.info(f"d")
+
         config._attn_implementation = kwargs.pop("attn_implementation", attn_implementation)
+        logger.info(f"e")
         if not getattr(config, "_attn_implementation_autoset", False):
             config = cls._autoset_attn_implementation(
                 config,
@@ -2007,6 +2011,7 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, PushToHubMixin, PeftAdapterMi
                 check_device_map=False,
                 torch_dtype=torch_dtype,
             )
+        logger.info(f"f")
 
         if is_deepspeed_zero3_enabled() and not _is_quantized and not _is_ds_init_called:
             logger.info("Detected DeepSpeed ZeRO-3: activating zero.init() for this model")
@@ -2019,9 +2024,18 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, PushToHubMixin, PeftAdapterMi
         else:
             model = cls(config, **kwargs)
 
+        logger.info(f"g")
+
         # restore default dtype if it was modified
         if dtype_orig is not None:
             torch.set_default_dtype(dtype_orig)
+
+        logger.info(f"h")
+
+        caller_frame = inspect.stack()[1]
+        filename = caller_frame.filename
+        lineno = caller_frame.lineno
+        print(f"Chiamata da: {filename}, riga {lineno}")
 
         return model
 

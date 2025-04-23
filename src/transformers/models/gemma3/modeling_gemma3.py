@@ -1076,9 +1076,11 @@ class Gemma3ForConditionalGeneration(Gemma3PreTrainedModel, GenerationMixin):
     def __init__(self, config: Gemma3Config):
         super().__init__(config)
         self.vision_tower = AutoModel.from_config(config=config.vision_config)
+        logger.info(f"i")
         self.multi_modal_projector = Gemma3MultiModalProjector(config)
+        logger.info(f"l")
         self.vocab_size = config.text_config.vocab_size
-
+        logger.info(f"m")
         language_model = AutoModelForCausalLM.from_config(config=config.text_config)
 
         if language_model._tied_weights_keys is not None:

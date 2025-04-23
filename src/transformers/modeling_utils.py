@@ -2036,6 +2036,9 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, PushToHubMixin, PeftAdapterMi
         filename = caller_frame.filename
         lineno = caller_frame.lineno
         print(f"Chiamata da: {filename}, riga {lineno}")
+        
+        for i, frame in enumerate(inspect.stack()):
+            print(f"[{i}] {frame.filename}:{frame.lineno} - {frame.function}")
 
         return model
 

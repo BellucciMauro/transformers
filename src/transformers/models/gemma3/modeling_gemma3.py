@@ -1034,20 +1034,25 @@ class Gemma3ForCausalLM(Gemma3PreTrainedModel, GenerationMixin):
 
 class Gemma3MultiModalProjector(nn.Module):
     def __init__(self, config: Gemma3Config):
+        logger.info(f".1")
         super().__init__()
-
+        logger.info(f.2")
         self.mm_input_projection_weight = nn.Parameter(
             torch.zeros(config.vision_config.hidden_size, config.text_config.hidden_size)
         )
-
+        logger.info(f".3")
         self.mm_soft_emb_norm = Gemma3RMSNorm(
             config.vision_config.hidden_size, eps=config.vision_config.layer_norm_eps
         )
-
+        logger.info(f".4")
         self.patches_per_image = int(config.vision_config.image_size // config.vision_config.patch_size)
+        logger.info(f".5")
         self.tokens_per_side = int(config.mm_tokens_per_image**0.5)
+        logger.info(f".6")
         self.kernel_size = self.patches_per_image // self.tokens_per_side
+        logger.info(f".7")
         self.avg_pool = nn.AvgPool2d(kernel_size=self.kernel_size, stride=self.kernel_size)
+        logger.info(f".8")
 
     def forward(self, vision_outputs: torch.Tensor):
         batch_size, _, seq_length = vision_outputs.shape
